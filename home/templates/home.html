@@ -1,0 +1,12 @@
+<h1 align="center">Welcome to home</h1>
+<form method="post" enctype="multipart/form-data" action="{% url 'home' %}" >
+    {%csrf_token%}
+    {{thread_form.as_p}}
+    {%csrf_token%}
+    <input type="submit" value="create">
+</form>
+{% for thread in thread_list %}
+<p><a href="{% url 'thread' thread.id %}">{{thread.title}}</a></p>
+<p>{{thread.text}}</p>
+<img src="{{thread.image.url}}">
+{% endfor %}

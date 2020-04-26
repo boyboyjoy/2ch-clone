@@ -1,0 +1,14 @@
+<h1>{{thread.title}}</h1>
+<p>{{thread.text}}</p>
+<p><a href="{% url 'home' %}"><- back to thread list</a></p>
+<form method="post" enctype="multipart/form-data" action="{% url 'thread' thread.id %}" >
+    {{post_form.as_p}}
+    {%csrf_token%}
+    <input type="submit" value="send">
+</form>
+{% for post in thread.post_set.all %}
+<p>#{{post.id}} {{post.text}}</p>
+{% if post.post_image %}
+<img src="{{post.post_image.url}}">
+{%endif%}
+{% endfor %}
