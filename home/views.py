@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
@@ -21,7 +22,10 @@ def thread(request,pk):
     if request.method=='GET':
         thread = get_object_or_404(Thread, pk=pk)
         post_form = PostForm()
-        return render(request, 'thread.html', {'thread': thread, 'post_form': post_form})
+        paginator=Paginator(thread.post_set.all(),4)
+        page_number=request.GET.get('page')
+        page_obj=paginator.get_page(page_number)
+        return render(request, 'thread.html', {'thread': thread, 'post_form': post_form,'page':page_obj})
     elif request.method=='POST':
         text=request.POST['text']
         thread=get_object_or_404(Thread,pk=pk)
