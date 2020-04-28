@@ -12,9 +12,13 @@ class Thread(models.Model):
 
 
 class Post(models.Model):
-    post_image=ResizedImageField(size=[400, 250], upload_to='media/',default=None,null=True)
+    post_image=ResizedImageField(size=[400, 250], upload_to='media/',default=None,null=True,blank=True)
     text=models.TextField(max_length=100,blank=False)
     thread=models.ForeignKey(Thread,on_delete=models.CASCADE,blank=False)
+    answer=models.ManyToManyField('Post',default=None,blank=True,verbose_name='answer',null=True)
+
+    def __str__(self):
+        return ('post # {0}'.format(self.id))
 
 
 class ThreadForm(ModelForm):
@@ -25,4 +29,4 @@ class ThreadForm(ModelForm):
 class PostForm(ModelForm):
     class Meta:
         model=Post
-        fields = ['post_image', 'text',]
+        fields = ['post_image', 'text','answer',]

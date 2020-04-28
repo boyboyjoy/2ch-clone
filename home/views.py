@@ -25,8 +25,10 @@ def thread(request,pk):
     elif request.method=='POST':
         text=request.POST['text']
         thread=get_object_or_404(Thread,pk=pk)
-        file=request.FILES['post_image']
+        file=request.FILES.get('post_image',None)
+        answer=request.POST.get('answer',None)
         post = Post.objects.create(text=text, thread=thread, post_image=file)
+        post.post_set.add(answer)
         post.save()
         return redirect(reverse('thread',args=[pk]))
 

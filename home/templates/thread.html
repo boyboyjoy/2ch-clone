@@ -7,7 +7,16 @@
     <input type="submit" value="send">
 </form>
 {% for post in thread.post_set.all %}
-<p>#{{post.id}} {{post.text}}</p>
+{% if not post.post_set.all  %}
+<p>#{{post.id}}</p>
+<p> {{post.text}}</p>
+{% endif %}
+{% if post.post_set %}
+{% for answer in post.post_set.all %}
+<p>#{{answer.id}}, answer to #{{post.id}}</p>
+<p>{{post.text}}</p>
+{%endfor%}
+{% endif %}
 {% if post.post_image %}
 <img src="{{post.post_image.url}}">
 {%endif%}

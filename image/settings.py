@@ -76,14 +76,12 @@ WSGI_APPLICATION = 'image.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-
-        #'HOST':'localhost',
-        #'NAME':'image',
-        #'PASSWORD':'meepolp666',
-        #'PORT':'',
-        #'USER':'postgres',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST':'localhost',
+        'NAME':'mybd',
+        'PASSWORD':'meepolp666',
+        'PORT':'',
+        'USER':'postgres',
     }
 }
 
